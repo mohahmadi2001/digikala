@@ -44,7 +44,6 @@ def product_view(request,product_id):
     except Product.DoesNotExist:
         return HttpResponse("404 Product not found")
     
-
 def category_view(request,slug):
     try:
         c = Category.objects.get(slug = slug)
