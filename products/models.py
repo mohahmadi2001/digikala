@@ -9,14 +9,14 @@ class Product(models.Model):
     category = models.ForeignKey("Category",
                                  verbose_name=_("Category"),
                                  on_delete=models.RESTRICT
-                                 )
+                                 ) 
     
     def __str__(self) -> str:
         return f"{self.id},{self.name}"
 
 class Category(models.Model):
     name = models.CharField(_("Title"),max_length=50)
-    slug = models.SlugField(_("Slug"))
+    slug = models.SlugField(_("Slug"),unique=True,db_index=True)
     description = models.TextField(_("Description"))
     icon = models.ImageField(_("Icon"),upload_to='category_image',null=True,blank=True)
     image = models.ImageField(_("ّImage"),upload_to='category_image',null=True,blank=True)
