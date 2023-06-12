@@ -1,5 +1,6 @@
 from django.shortcuts import render,HttpResponse
 from .models import Category,Product
+from django.template.loader import get_template 
 # Create your views here.
 
 def index(request):
@@ -29,18 +30,8 @@ def index(request):
 def product_view(request,product_id):
     try:
         p = Product.objects.get(id = product_id)
-        return HttpResponse(f"""
-                        <html>
-                        <head><title>digikala</title></head>
-                        <body>
-                        <h1>{p.name}</h1>
-                        <h5>{p.en_name}</h5>
-                        <p>
-                        {p.description}
-                        </p>
-                        </body>
-                        </html>           
-                        """)
+        template = get_template('products/product.html')
+        return HttpResponse(template.render(context={"product":p},request=request))
     except Product.DoesNotExist:
         return HttpResponse("404 Product not found")
     
