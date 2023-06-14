@@ -11,13 +11,16 @@ class ProductImageInline(admin.TabularInline):
 class ProductOptionInline(admin.TabularInline):
     model = ProductOption
     
+class ProductPriceInline(admin.TabularInline):
+    model = ProductPrice
+    
     
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     list_display = ['id','en_name',"name","category"]
     list_filter = ["category"]
     search_fields = ["en_name,name"]
-    inlines = [ProductImageInline,ProductOptionInline]
+    inlines = [ProductImageInline,ProductOptionInline,ProductPriceInline]
 
 @admin.register(Image)
 class ImageAdmin(admin.ModelAdmin):
