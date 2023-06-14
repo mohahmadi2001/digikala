@@ -6,13 +6,16 @@ from .models import Product,Category,Comment,Question,Answer,Image,ProductOption
     
 class ProductImageInline(admin.TabularInline):
     model = Image
+    extra = 1
 
 
 class ProductOptionInline(admin.TabularInline):
     model = ProductOption
+    extra = 1
     
 class ProductPriceInline(admin.TabularInline):
     model = ProductPrice
+    extra = 1
     
     
 @admin.register(Product)
