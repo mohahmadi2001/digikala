@@ -4,15 +4,20 @@ from .models import Product,Category,Comment,Question,Answer,Image,ProductOption
 # Register your models here.
 
     
-class ImageInline(admin.TabularInline):
+class ProductImageInline(admin.TabularInline):
     model = Image
+
+
+class ProductOptionInline(admin.TabularInline):
+    model = ProductOption
+    
     
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     list_display = ['id','en_name',"name","category"]
     list_filter = ["category"]
     search_fields = ["en_name,name"]
-    inlines = [ImageInline]
+    inlines = [ImageInline,ProductOptionInline]
 
 @admin.register(Image)
 class ImageAdmin(admin.ModelAdmin):

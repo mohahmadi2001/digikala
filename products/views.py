@@ -31,15 +31,10 @@ def product_view(request,product_id):
 
         p = get_object_or_404(Product,id=product_id)
         context = {"product":p}
-        # template = get_template('products/product.html')
-        # response = template.render(context=context,request=request)
-        # response = render_to_string('products/product.html',context=context,request=request)
-        # return HttpResponse(response)
         return render(
             template_name="products/product.html",
             request=request,
             context=context)
-    # instead of
     
 def category_view(request,slug):
     try:
