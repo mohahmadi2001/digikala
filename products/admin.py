@@ -17,7 +17,7 @@ class ProductAdmin(admin.ModelAdmin):
     list_display = ['id','en_name',"name","category"]
     list_filter = ["category"]
     search_fields = ["en_name,name"]
-    inlines = [ImageInline,ProductOptionInline]
+    inlines = [ProductImageInline,ProductOptionInline]
 
 @admin.register(Image)
 class ImageAdmin(admin.ModelAdmin):
