@@ -102,7 +102,8 @@ class ProductOption(models.Model):
     value = models.CharField(_("Value"),max_length=150)
     product = models.ForeignKey("Product",
                                 verbose_name=_("Product"),
-                                on_delete=models.CASCADE
+                                on_delete=models.CASCADE,
+                                related_name="product_option"
                                 )
     
 
