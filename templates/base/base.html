@@ -15,6 +15,9 @@
     <div>
         <nav>
             <ul>
+                <li>
+                    <a href="/products/">صفحه اصلی</a>
+                </li>
                 {% for category in categories %}
                 <li><a href="/categories/{{category.slug}}">{{category.name}}</a></li>
                 {% endfor %}

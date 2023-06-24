@@ -1,12 +1,16 @@
-{% load static %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>فروشگاه اینترنتی دیجی‌کالا </title>
-    <link rel="stylesheet" href="{% static 'styles/style.css' %}">
-</head>
-<body>
-   
-</body>
-</html>
+{% extends 'base/base.html' %}
+{% block title %}لیست کالاها{% endblock title %}
+{% block main %}
+<ul>
+    {% for p in products %}
+    <li>
+        <a href="/products/{{p.id}}">
+            <div>
+                <h2>{{p.name}}</h2>
+            </div>
+        </a>
+    </li>
+    
+    {% endfor %}
+</ul>
+{% endblock main %}
