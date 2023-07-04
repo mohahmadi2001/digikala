@@ -8,7 +8,10 @@
                 <div id="breadcrump" class="row px-3">
                     <ul>
                         <li><a href="\">فوکالا</a></li>
-                        {% for category in product.categories_list  %}{% endfor %}
+                        {% for category in product.categories_list  %}
+                        <li><a href="/">{{category.name}}</a></li>
+                        {% endfor %}
+
                     </ul>
                 </div>
                 <div id="product-single" class="row">

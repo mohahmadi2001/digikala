@@ -10,6 +10,11 @@ class Product(models.Model):
                                  verbose_name=_("Category"),
                                  on_delete=models.RESTRICT
                                  ) 
+    brand = models.ForeignKey("Brand",
+                              verbose_name=_("Brand"),
+                              on_delete=models.CASCADE
+                              )
+    
     @property
     def default_image(self):
         return self.image_set.filter(is_default=True).first()
@@ -145,6 +150,20 @@ class ProductPrice(models.Model):
     class Meta:
         verbose_name = _("ProductPrice")
         verbose_name_plural = _("ProductPrices")
+
+
+class Brand(models.Model):
+    name = models.CharField(_("Name"), max_length=150)
+    en_name = models.CharField(_("Name"), max_length=150)
+    slug = models.SlugField(_("slug"))
+    
+
+    class Meta:
+        verbose_name = _("Brand")
+        verbose_name_plural = _("Brands")
+
+    def __str__(self):
+        return self.name
 
 
 
