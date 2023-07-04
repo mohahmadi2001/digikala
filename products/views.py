@@ -17,13 +17,13 @@ def product_list_view(request):
         context=context,
     )
    
-def product_single_view(request,product_id):
+def product_detail_view(request,product_id):
 
         p = get_object_or_404(Product,id=product_id)
         context = {"product":p}
         # p.default_image.image.url
         return render(
-            template_name="products/product-single.html",
+            template_name="products/product-detail.html",
             request=request,
             context=context)
     
