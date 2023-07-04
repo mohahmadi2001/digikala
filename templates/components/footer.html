@@ -1,3 +1,4 @@
+{% load static %}
 <footer>
     <div class="container-fluid">
         <div class="row">
@@ -43,9 +44,9 @@
             <div id="logos-widget" class="footer-widget col-12 col-sm-6 col-xl-4">
                 <h4 class="widget-title">اطمینان از خرید</h4>
                 <div class="widget-content">
-                    <img src="images/logos/logo-e.jpg" alt="enamad-logo" />
-                    <img src="images/logos/logo-s.jpg" alt="samandehi-logo" />
-                    <img src="images/logos/logo-k.jpg" alt="kasbokar-logo" />
+                    <img src="{% static 'images/logos/logo-e.jpg' %} " alt="enamad-logo" />
+                    <img src="{% static 'images/logos/logo-s.jpg' %} " alt="samandehi-logo" />
+                    <img src="{% static 'images/logos/logo-k.jpg' %} " alt="kasbokar-logo" />
                 </div>
             </div>
         </div>

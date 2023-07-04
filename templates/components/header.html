@@ -1,3 +1,4 @@
+{% load static %}
 <header>
     <nav id="sidemenu" class="sidebar">
         <div class="dismiss">
@@ -5,7 +6,7 @@
         </div>
 
         <div class="sidebar-header">
-            <h3><a class="navbar-brand p-0 m-0" href="#"><img src="images/fookala-farsi.svg" width="115" height="36"></a>
+            <h3><a class="navbar-brand p-0 m-0" href="#"><img src="{% static 'images/fookala-farsi.svg' %} " width="115" height="36"></a>
             </h3>
         </div>
 
@@ -39,7 +40,7 @@
                 <span class="navbar-toggler-icon">
                 </span>
             </button>
-            <a class="navbar-brand p-0 m-0" href="#"><img src="images/fookala-farsi.svg" width="115" height="36"></a>
+            <a class="navbar-brand p-0 m-0" href="#"><img src="{% static 'images/fookala-farsi.svg' %} " width="115" height="36"></a>
             <div class="searchform mx-auto w-50 w-60-lg px-0 px-lg-1">
                 <form action="/search" data-action="" id="frmSearch" autocomplete="off" class="search-box">
                     <div class="input-group">
@@ -95,7 +96,7 @@
                         <i class="fas fa-window-close jhfg"></i>
                     </button>
                 </div>
-                <a href="#" title=""><img src="images/products/1.jpg" width="70" height="70" /></a>
+                <a href="#" title=""><img src="{% static 'images/products/1.jpg' %} " width="70" height="70" /></a>
                 <div class="product-title mb-1"><a href="#" title="">دستمال کاغذی سافت‌لن</a></div>
                 <div class="product-price"><del>126,000</del><br><span>170,000 تومان</span></div>
                 <div class="product-quantity">
@@ -123,7 +124,7 @@
                         <i class="fas fa-window-close jhfg"></i>
                     </button>
                 </div>
-                <a href="#" title=""><img src="images/products/2.jpg" width="70" height="70" /></a>
+                <a href="#" title=""><img src="{% static 'images/products/2.jpg' %} " width="70" height="70" /></a>
                 <div class="product-title mb-1"><a href="#" title="">دستمال کاغذی سافت‌لن</a></div>
                 <div class="product-price"><del>126,000</del><br><span>170,000 تومان</span></div>
                 <div class="product-quantity">

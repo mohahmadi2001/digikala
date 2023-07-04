@@ -21,6 +21,7 @@ def product_single_view(request,product_id):
 
         p = get_object_or_404(Product,id=product_id)
         context = {"product":p}
+        # p.default_image.image.url
         return render(
             template_name="products/product-single.html",
             request=request,

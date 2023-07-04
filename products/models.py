@@ -10,7 +10,20 @@ class Product(models.Model):
                                  verbose_name=_("Category"),
                                  on_delete=models.RESTRICT
                                  ) 
+    @property
+    def default_image(self):
+        return self.image_set.filter(is_default=True).first()
     
+    @property
+    def category_list(self):
+        category_list = []
+        current_category = self.category
+        while current_category.parent is not None:
+            category_list.append(current_category)
+            current_category = current_category.parent
+        category_list.append(current_category)
+        return category_list
+      
     def __str__(self) -> str:
         return f"{self.id},{self.name}"
 
