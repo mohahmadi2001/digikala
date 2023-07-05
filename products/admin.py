@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Product,Category,Comment,Question,Answer,Image,ProductOption,SellerProductPrice
+from .models import Product,Category,Comment,Question,Answer,Image,ProductOption,SellerProductPrice,Brand
 
 # Register your models here.
 
@@ -63,4 +63,8 @@ class ProductOptionAdmin(admin.ModelAdmin):
 
 @admin.register(SellerProductPrice)
 class ProductPriceAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(Brand)
+class BrandAdmin(admin.ModelAdmin):
     pass

@@ -153,7 +153,7 @@ class SellerProductPrice(models.Model):
     product = models.ForeignKey("Product",
                                 verbose_name=_("Product"),
                                 on_delete=models.CASCADE,
-                                related_name='product_sellers'
+                                related_name='seller_prices'
                                 )
     seller = models.ForeignKey("sellers.Seller",
                                verbose_name=_("Seller"),
@@ -175,7 +175,7 @@ class SellerProductPrice(models.Model):
 
 class Brand(models.Model):
     name = models.CharField(_("Name"), max_length=150)
-    en_name = models.CharField(_("Name"), max_length=150)
+    en_name = models.CharField(_("English Name"), max_length=150)
     slug = models.SlugField(_("slug"),unique=True,db_index=True)
     
 
@@ -184,7 +184,7 @@ class Brand(models.Model):
         verbose_name_plural = _("Brands")
 
     def __str__(self):
-        return self.name
+        return self.slug
 
 
 

@@ -18,9 +18,9 @@ def product_list_view(request):
     )
    
 def product_detail_view(request,product_id):
-
         p = get_object_or_404(Product,id=product_id)
-        context = {"product":p}
+        seller_prices = p.seller_prices.all()
+        context = {"product":p,"seller_prices":seller_prices}
         # p.default_image.image.url
         return render(
             template_name="products/product-detail.html",

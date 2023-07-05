@@ -24,7 +24,7 @@
                             <span class="star-rate col-6"><i class="fas fa-star"></i> امتیاز: 3.9 از 5</span>
                             <span class="user-comment-count col-6">45 دیدگاه کاربران</span>
                             <span class="product-category col-6">دسته بندی: <a href="#" title="{{product.category.name}}">{{product.category.name}}</a></span>
-                            <span class="product-brand col-6">برند: <a href="#" title="نانسی">نانسی</a></span>
+                            <span class="product-brand col-6">برند: <a href="#" title="{{product.brand.name}}">{{product.brand.name}}</a></span>
                             <div class="product-description">
                                 <p>{{product.description}}</p>
                             </div>
@@ -43,32 +43,23 @@
                 </div>
             </div>
             <div id="product-sellers" class="col-12">
+                {% for s in seller_prices %}
                 <div class="row">
                     <div class="col-4">
-                        <div class="product-seller">فوکالا شهرک غرب<br><span>رضایت خرید: 98 درصد</span></div>
+                        <div class="product-seller">{{s.seller.name}}<br>
+                        <span>رضایت خرید: 98 درصد</span>
+                        </div>
                     </div>
                     <div class="col-4">
                         <div class="product-price">
-                            <div class="product-price"><span>7,000 تومان</span></div>
+                            <div class="product-price"><span>{{s.price}}</span></div>
                         </div>
                     </div>
                     <div class="col-4">
                         <button href="#" class="btn btn-cart"><i class="fas fa-plus"></i> افزودن به سبد</button>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-4">
-                        <div class="product-seller">دریانی شهرک غرب<br><span>رضایت خرید: 98 درصد</span></div>
-                    </div>
-                    <div class="col-4">
-                        <div class="product-price">
-                            <div class="product-price"><span>7,000 تومان</span></div>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <button href="#" class="btn btn-cart"><i class="fas fa-plus"></i> افزودن به سبد</button>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </div>
