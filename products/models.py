@@ -14,7 +14,9 @@ class Product(models.Model):
                                  ) 
     brand = models.ForeignKey("Brand",
                               verbose_name=_("Brand"),
-                              on_delete=models.CASCADE
+                              on_delete=models.CASCADE,
+                              null=True,
+                              blank=True
                               )
     sellers = models.ManyToManyField("sellers.Seller",
                                      verbose_name=_("seller"),
@@ -174,7 +176,7 @@ class SellerProductPrice(models.Model):
 class Brand(models.Model):
     name = models.CharField(_("Name"), max_length=150)
     en_name = models.CharField(_("Name"), max_length=150)
-    slug = models.SlugField(_("slug"))
+    slug = models.SlugField(_("slug"),unique=True,db_index=True)
     
 
     class Meta:

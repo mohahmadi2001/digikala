@@ -1,11 +1,12 @@
 from django.db import models
 from django.urls import reverse
+from django.utils.translation import gettext as _
 
 # Create your models here.
 
 class Seller(models.Model):
     name = models.CharField(_("Name"), max_length=50)
-    slug = models.SlugField(_("slug"))
+    slug = models.SlugField(_("slug"),unique=True,db_index=True)
     
 
     class Meta:
