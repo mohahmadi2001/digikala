@@ -61,6 +61,39 @@
                 </div>
                 {% endfor %}
             </div>
+            <div id="product-commetns" class="col-12">
+                <div class="row">
+                    <div class='col-12'>
+                        <form action="" method='post'>
+                            {% csrf_token %}
+                            <div>
+                                <label for="email_input">ایمیل</label>
+                                <input id="email_input" type="email" name='email' required>
+                            </div>
+                            <div>
+                                <label for="commet_title">عنوان</label>
+                                <input id="commet_title" type="text" name='title'>
+                            </div>
+                            <div>
+                                <label for="commet_rate">امتیاز</label>
+                                <input id="commet_rate" type="number" name='rate'>
+                            </div>
+                            <div>
+                                <label for="commet_text">متن نظر</label>
+                                <textarea name="text" id="commet_text" cols="30" rows="10"></textarea>
+                            </div>
+                            <input type="submit" value="ثبت نظر">
+                        </form>
+                    </div>
+                    {% for comment in product.comment_set.all %}
+                    <div class="col-12">
+                        <h5>{{comment.title}}</h5>
+                        <span>{{comment.email}}</span>
+                        <p>{{comment.text}}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
     </div>
 {% endblock main %}

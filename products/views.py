@@ -1,5 +1,5 @@
 from django.shortcuts import render ,get_object_or_404
-from .models import Category,Product
+from .models import Category,Product,Comment,SellerProductPrice
 # Create your views here.
 
 def product_list_view(request):
@@ -19,13 +19,29 @@ def product_list_view(request):
    
 def product_detail_view(request,product_id):
         p = get_object_or_404(Product,id=product_id)
-        seller_prices = p.seller_prices.all()
+        if request.method == "POST":
+            comment = Comment.objects.create(
+                email = request.POST.get("email",""),
+                title = request.POST.get("title",""),
+                text = request.POST.get("text",""),
+                rate = int(request.POST.get("rate",0)),
+                product = p,
+            )
+        seller_prices = get_product_last_price(p.id)
         context = {"product":p,"seller_prices":seller_prices}
         # p.default_image.image.url
         return render(
             template_name="products/product-detail.html",
             request=request,
             context=context)
+        
+def get_product_last_price(id):
+    return SellerProductPrice.objects.raw(
+         f"""select * from products_sellerproductprice
+            where product_id = %(id)s
+            group by seller_id
+            having Max(update_at)""", {"id":id}
+    )
     
 def category_view(request,slug):
     try:
