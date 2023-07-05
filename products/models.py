@@ -1,5 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext as _
+from django.urls import reverse
+
 # Create your models here.
 
 class Product(models.Model):
@@ -14,7 +16,10 @@ class Product(models.Model):
                               verbose_name=_("Brand"),
                               on_delete=models.CASCADE
                               )
-    
+    sellers = models.ManyToManyField("sellers.Seller",
+                                     verbose_name=_("seller"),
+                                     through="SellerProductPrice"
+                                     )
     @property
     def default_image(self):
         return self.image_set.filter(is_default=True).first()
@@ -31,6 +36,10 @@ class Product(models.Model):
       
     def __str__(self) -> str:
         return f"{self.id},{self.name}"
+    
+    def get_absolute_url(self):
+        return reverse("seller_detail", kwargs={"pk": self.pk})
+    
 
 class Category(models.Model):
     name = models.CharField(_("Title"),max_length=50)
@@ -49,8 +58,9 @@ class Category(models.Model):
         verbose_name_plural = _("Categories")
     
     def __str__(self) -> str:
-        return self.slug
-           
+        return self.slug        
+
+
 class Comment(models.Model):
     title = models.CharField(_("Title"), max_length=50)
     text = models.TextField(_("Text"))
@@ -66,6 +76,7 @@ class Comment(models.Model):
 
     def __str__(self):
         return f"comment on {self.product.name}"
+
 
 class Image(models.Model):
     name = models.CharField(_("Name"), max_length=50)
@@ -85,6 +96,7 @@ class Image(models.Model):
     def __str__(self):
         return self.name
 
+
 class Question(models.Model):
     text = models.TextField(_("Question"))
     user_email = models.EmailField(_("Email"), max_length=254)
@@ -101,6 +113,7 @@ class Question(models.Model):
     def __str__(self):
         return self.text
 
+
 class Answer(models.Model):
     text = models.TextField(_("Answer"))
     question = models.ForeignKey("Question",
@@ -114,6 +127,7 @@ class Answer(models.Model):
     
     def __str__(self):
         return self.text
+
 
 class ProductOption(models.Model):
     name = models.CharField(_("Name"), max_length=100)
@@ -132,11 +146,16 @@ class ProductOption(models.Model):
     def __str__(self):
         return f"{self.product.name} {self.name}"
 
-class ProductPrice(models.Model):
+
+class SellerProductPrice(models.Model):
     product = models.ForeignKey("Product",
                                 verbose_name=_("Product"),
-                                on_delete=models.CASCADE
+                                on_delete=models.CASCADE,
+                                related_name='product_sellers'
                                 )
+    seller = models.ForeignKey("sellers.Seller",
+                               verbose_name=_("Seller"),
+                               on_delete=models.CASCADE)
     price = models.PositiveIntegerField(_("Price"))
     create_at = models.DateTimeField(_("create at"),
                                     auto_now=False,
