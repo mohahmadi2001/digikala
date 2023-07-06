@@ -23,11 +23,12 @@ def product_detail_view(request,pk):
         p = get_object_or_404(Product,pk=pk)
         seller_prices = get_product_last_price(p.id)
         if request.method == "GET":
-            form = ProductCommentModelForm(initial={"product_id":pk})
+            form = ProductCommentModelForm(initial={"product":p})
         elif request.method == "POST":
             form = ProductCommentModelForm(request.POST)
             if form.is_valid():    
-                Comment.objects.create(**form.cleaned_data,product=p)
+                # Comment.objects.create(**form.cleaned_data,product=p)
+                form.save()
                 return redirect("products:product-detail",pk=pk)
         context = {
             "product":p,

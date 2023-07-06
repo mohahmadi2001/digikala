@@ -1,3 +1,4 @@
+from typing import Any
 from django import forms
 from .models import Product,Comment
 from django.core.exceptions import ValidationError
@@ -19,10 +20,13 @@ from django.core.exceptions import ValidationError
 class ProductCommentModelForm(forms.ModelForm):
     class Meta:
         model = Comment
-        exclude = ["product"]
+        fields = "__all__"
         widgets = {
             "email": forms.EmailInput(attrs={"class":"form-control"}),
             "title": forms.TextInput(attrs={"class":"form-control"}),
             "text": forms.Textarea(attrs={"class":"form-control"}),
             "rate": forms.NumberInput(attrs={"class":"form-control"}),
-        }
+            "product": forms.HiddenInput()
+        }   
+    def save(self, commit: bool = ...) -> Any:
+        return super().save(commit)
