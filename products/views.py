@@ -1,6 +1,7 @@
 from django.shortcuts import render ,get_object_or_404, redirect
 from .models import Category,Product,Comment
 from products.utils import get_product_last_price
+from .forms import ProductCommentForm
 # Create your views here.
 
 def product_list_view(request):
@@ -21,22 +22,32 @@ def product_list_view(request):
 def product_detail_view(request,pk):
         p = get_object_or_404(Product,pk=pk)
         seller_prices = get_product_last_price(p.id)
-        context = {"product":p,"seller_prices":seller_prices}
+        if request.method == "GET":
+            form = ProductCommentForm()
+        elif request.method == "POST":
+            form = ProductCommentForm(request.POST)
+            if form.is_valid():    
+                return redirect("products:product-detail",pk=pk)
+        context = {
+            "product":p,
+            "seller_prices":seller_prices,
+            "form":form,
+            }
         return render(
             template_name="products/product-detail.html",
             request=request,
             context=context)
-        
-def create_comment(request,product_id):
-    if request.method == "POST":
-            Comment.objects.create(
-                email = request.POST.get("email",""),
-                title = request.POST.get("title",""),
-                text = request.POST.get("text",""),
-                rate = int(request.POST.get("rate",0)),
-                product_id = request.POST.get("product_id",""),
-            )
-    return redirect("products:product-detail",pk=product_id)
+          
+# def create_comment(request,product_id):
+#     if request.method == "POST":
+#             Comment.objects.create(
+#                 email = request.POST.get("email",""),
+#                 title = request.POST.get("title",""),
+#                 text = request.POST.get("text",""),
+#                 rate = int(request.POST.get("rate",0)),
+#                 product_id = request.POST.get("product_id",""),
+#             )
+#     return redirect("products:product-detail",pk=product_id)
 
 def category_view(request,slug):
     try:
