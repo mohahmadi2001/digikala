@@ -1,7 +1,7 @@
 from django.shortcuts import render ,get_object_or_404, redirect
 from .models import Category,Product,Comment
 from products.utils import get_product_last_price
-from .forms import ProductCommentForm
+from .forms import ProductCommentModelForm
 # Create your views here.
 
 def product_list_view(request):
@@ -23,11 +23,11 @@ def product_detail_view(request,pk):
         p = get_object_or_404(Product,pk=pk)
         seller_prices = get_product_last_price(p.id)
         if request.method == "GET":
-            form = ProductCommentForm(initial={"product_id":pk})
+            form = ProductCommentModelForm(initial={"product_id":pk})
         elif request.method == "POST":
-            form = ProductCommentForm(request.POST)
+            form = ProductCommentModelForm(request.POST)
             if form.is_valid():    
-                Comment.objects.create(**form.cleaned_data)
+                Comment.objects.create(**form.cleaned_data,product=p)
                 return redirect("products:product-detail",pk=pk)
         context = {
             "product":p,
