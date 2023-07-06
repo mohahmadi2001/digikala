@@ -23,7 +23,7 @@ def product_detail_view(request,pk):
         p = get_object_or_404(Product,pk=pk)
         seller_prices = get_product_last_price(p.id)
         if request.method == "GET":
-            form = ProductCommentForm({"product_id":pk})
+            form = ProductCommentForm(initial={"product_id":pk})
         elif request.method == "POST":
             form = ProductCommentForm(request.POST)
             if form.is_valid():    
