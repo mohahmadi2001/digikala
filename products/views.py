@@ -36,7 +36,7 @@ def create_comment(request,product_id):
                 rate = int(request.POST.get("rate",0)),
                 product_id = request.POST.get("product_id",""),
             )
-    return redirect("product-detail",pk=product_id)
+    return redirect("products:product-detail",pk=product_id)
 
 def category_view(request,slug):
     try:
