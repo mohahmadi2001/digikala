@@ -11,7 +11,7 @@ def login_view(request):
         if form.is_valid():
             user = form.cleaned_data["user"]
             login(request=request,user=user)
-            return redirect("")
+            return redirect("accounts:user_info_view")
     context={
         "form":form
     }
@@ -30,7 +30,7 @@ def user_register_view(request):
             user = form.cleaned_data["user"]
             user = form.save(commit=True)
             login(request=request,user=user)
-            return redirect("")
+            return redirect("accounts:user_info_view")
     context={
         "form":form
     }
@@ -40,3 +40,5 @@ def user_register_view(request):
         context
     )
     
+def user_info_view(request):
+    return render(request,"accounts/user-info.html",{})
