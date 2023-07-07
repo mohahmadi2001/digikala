@@ -9,7 +9,7 @@ class UserLogin(forms.Form):
         super(UserLogin, self).__init__(*args, **kwargs)
         
     email = forms.EmailField(
-        widget=forms.EmailField({"class":"form-control"}),
+        widget=forms.EmailInput({"class":"form-control"}),
         required=True
         )
     password = forms.CharField(

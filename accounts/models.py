@@ -41,11 +41,6 @@ class UserManager(BaseUserManager):
         return self._create_user(email, password, **extra_fields)
 
 
-class ActiveUserManager(UserManager):
-    def get_queryset(self) -> QuerySet:
-        return super().get_queryset().filter(is_active = True)
-
-
 class User(AbstractBaseUser,PermissionsMixin):
 
     first_name = models.CharField(_("first name"), max_length=150, blank=True)
@@ -71,12 +66,11 @@ class User(AbstractBaseUser,PermissionsMixin):
 
     EMAIL_FIELD = "email"
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ["email"]
+    REQUIRED_FIELDS = []
 
     class Meta:
         verbose_name = _("user")
         verbose_name_plural = _("users")
-        abstract = True
 
     def clean(self):
         super().clean()
@@ -98,7 +92,3 @@ class User(AbstractBaseUser,PermissionsMixin):
         send_mail(subject, message, from_email, [self.email], **kwargs)
 
 
-class ActiveUser(User):
-    objects = ActiveUserManager()
-    class Meta:
-        proxy = True
