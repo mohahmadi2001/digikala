@@ -60,7 +60,11 @@
                         <i class="fas fa-map-marker-alt"></i>
                     </span>
                 </button>
-                <button id="account" class="navbar-toggler account-btn" type="button" title="محیط کاربری">
+                <button id="account" 
+                class="navbar-toggler account-btn" 
+                type="button" 
+                href="{% if user.is_authenticated %}{% url 'accounts:user_info_view' %}{% else %}{% url 'accounts:login_view' %}{% endif %}"
+                title="محیط کاربری">
                     <span class="cart-toggler-icon">
                         <i class="fas fa-user"></i>
                     </span>

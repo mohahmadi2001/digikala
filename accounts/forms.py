@@ -31,7 +31,7 @@ class UserLogin(forms.Form):
             raise forms.ValidationError("credential is invalid")
     
 
-class RegisterUSer(forms.Form):
+class UserRegisterFrom(forms.ModelForm):
     password1 = forms.CharField(
         widget=forms.PasswordInput({"class":"form-control"}),
         required=True,
@@ -44,28 +44,28 @@ class RegisterUSer(forms.Form):
         )
     class Meta:
         model = User
-        fields = {
-            "first_name",
-            "last_name",
-            "email",
-            "mobile",
-            "password",
-        }
+        fields = (
+            'first_name',
+            'last_name',
+            'email',
+            'mobile',
+            'password1',
+            'password2'
+        )
         
     def clean(self) -> Dict[str, Any]:
-        clean_data = super().clean()
-        password1 = clean_data.pop("password1",None)
-        password2 = clean_data.pop("password2",None)
+        cleaned_data = super().clean()
+        password1 = cleaned_data.pop('password1', None)
+        password2 = cleaned_data.pop('password2', None)
         if password1 != password2:
-            self.add_error("password2",forms.ValidationError(
-                "در وارد کردن رمز عبور دقت کنید"),code="invalid"
-            )
-            clean_data.setdefault("password",password1)
-        return clean_data
+            self.add_error('password2', forms.ValidationError(
+                'در وارد کردن کلمه عبور دقت کنید', code='invalid'))
+            cleaned_data.setdefault('password', password1)
+        return cleaned_data
     
-    def save(self,commit: bool=...) -> Any:
+    def save(self, commit: bool = ...) -> Any:
         user = super().save(commit)
-        user.setPassword(self.cleaned_data["password1"])
+        user.set_password(self.cleaned_data['password'])
         if commit:
             user.save()
         return user
