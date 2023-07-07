@@ -53,6 +53,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'digikala.urls'
+AUTH_USER_MODEL = "accounts.User"
 
 TEMPLATES = [
     {
