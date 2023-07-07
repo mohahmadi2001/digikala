@@ -42,6 +42,14 @@ class Product(models.Model):
     def get_absolute_url(self):
         return reverse("seller_detail", kwargs={"pk": self.pk})
     
+    @property
+    def sellers_last_price(id):
+        return SellerProductPrice.objects.raw(
+            f"""select * from products_sellerproductprice
+                where product_id = %(id)s
+                group by seller_id
+                having Max(update_at)""", {"id":id}
+        )
 
 class Category(models.Model):
     name = models.CharField(_("Title"),max_length=50)

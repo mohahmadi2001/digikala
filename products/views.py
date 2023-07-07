@@ -1,6 +1,5 @@
 from django.shortcuts import render ,get_object_or_404, redirect
 from .models import Category,Product,Comment
-from products.utils import get_product_last_price
 from .forms import ProductCommentModelForm
 # Create your views here.
 
@@ -21,18 +20,16 @@ def product_list_view(request):
    
 def product_detail_view(request,pk):
         p = get_object_or_404(Product,pk=pk)
-        seller_prices = get_product_last_price(p.id)
         if request.method == "GET":
             form = ProductCommentModelForm(initial={"product":p})
         elif request.method == "POST":
             form = ProductCommentModelForm(request.POST)
             if form.is_valid():    
-                # Comment.objects.create(**form.cleaned_data,product=p)
                 form.save()
                 return redirect("products:product-detail",pk=pk)
         context = {
             "product":p,
-            "seller_prices":seller_prices,
+            "product_sellers": p.sellers_last_price,
             "comment_form":form,
             }
         return render(
@@ -40,16 +37,6 @@ def product_detail_view(request,pk):
             request=request,
             context=context)
           
-# def create_comment(request,product_id):
-#     if request.method == "POST":
-#             Comment.objects.create(
-#                 email = request.POST.get("email",""),
-#                 title = request.POST.get("title",""),
-#                 text = request.POST.get("text",""),
-#                 rate = int(request.POST.get("rate",0)),
-#                 product_id = request.POST.get("product_id",""),
-#             )
-#     return redirect("products:product-detail",pk=product_id)
 
 def category_view(request,slug):
     try:
