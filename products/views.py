@@ -28,6 +28,7 @@ def product_detail_view(request,pk):
                 form.save()
                 return redirect("products:product-detail",pk=pk)
         context = {
+            "default_product_seller": p.sellers_last_price[0],
             "product":p,
             "product_sellers": p.sellers_last_price,
             "comment_form":form,
@@ -36,7 +37,24 @@ def product_detail_view(request,pk):
             template_name="products/product-detail.html",
             request=request,
             context=context)
-          
+
+def home(request):
+    query = Product.objects.all()
+    most_off_products = query
+    most_sell = query
+    most_recent = query
+    context = {
+        "most_off_products": most_off_products,
+        "most_sell": most_sell,
+        "most_recent": most_recent,
+        "banners": [],
+    }
+
+    return render(
+        template_name='products/index.html',
+        request=request,
+        context=context
+    )         
 
 def category_view(request,slug):
     try:

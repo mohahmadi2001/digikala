@@ -50,6 +50,12 @@ class Product(models.Model):
                 group by seller_id
                 having Max(update_at)""", {"id":id}
         )
+        
+    @property
+    def default_product_seller(self):
+        if (self.sellers_last_price):
+            return self.sellers_last_price[0]
+        return None
 
 class Category(models.Model):
     name = models.CharField(_("Title"),max_length=50)
